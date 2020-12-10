@@ -11,7 +11,7 @@ namespace MdDocGenerator
             {typeof(DateTime),$"\"{DateTime.Today.ToString("yyyy-MM-dd")}\""},
             {typeof(decimal),default(decimal)},
             {typeof(Guid),$"\"{default(Guid)}\""},
-            {typeof(bool),$"\"false\"" },
+            {typeof(bool),"false" },
             {typeof(char),default(char) },
             {typeof(byte[]),default(byte[]) },
             {typeof(Enum),default(Enum) },
