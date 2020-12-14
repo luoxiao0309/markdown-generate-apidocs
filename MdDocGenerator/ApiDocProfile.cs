@@ -85,7 +85,7 @@ namespace MdDocGenerator
         {
             var builder = new MarkdownBuilder();
             builder.AppendLine("请求方式：POST");
-            builder.AppendLine($"请求Path：/api/{methodInfo.FullName}");
+            builder.AppendLine($"请求Path：/api/{methodInfo.Namespace}/{methodInfo.MethodName}");
             return builder.ToString();
         }
 
