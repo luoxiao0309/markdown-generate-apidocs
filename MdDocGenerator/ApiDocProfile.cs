@@ -85,7 +85,8 @@ namespace MdDocGenerator
         {
             var builder = new MarkdownBuilder();
             builder.AppendLine("请求方式：POST");
-            builder.AppendLine($"请求Path：/api/{methodInfo.Namespace}/{methodInfo.MethodName}");
+            //builder.AppendLine($"请求Path：/api/P73330101/SaleChg/{methodInfo.MethodName}");
+            builder.AppendLine($"请求Path：/api/{methodInfo.Namespace}.{methodInfo.ServiceName}/{methodInfo.MethodName}");
             return builder.ToString();
         }
 
@@ -122,7 +123,7 @@ namespace MdDocGenerator
             var data = new List<string[]>();
             foreach (var parameterInfo in apiMethod.ApiParams)
             {
-                var item = new string[] { $"{parameterInfo.Name}", $"{parameterInfo.TypeName.Replace("<","\\<")}", $"{GetParamDesc(apiMethod.FullName, parameterInfo.Name)}" };
+                var item = new string[] { $"{parameterInfo.Name}", $"{parameterInfo.TypeName.Replace("<", "\\<")}", $"{GetParamDesc(apiMethod.FullName, parameterInfo.Name)}" };
                 data.Add(item);
             }
             if (data.Any())
@@ -132,7 +133,7 @@ namespace MdDocGenerator
             var hs = new HashSet<string>();
             foreach (var apiParam in apiMethod.ApiParams)
             {
-               
+
                 var type = AssemblyHelper.GetType(apiParam.SourceType);
                 if (type != null)
                 {
@@ -140,7 +141,7 @@ namespace MdDocGenerator
                     var properties = AssemblyHelper.GetProperties(type);
                     foreach (var property in properties)
                     {
-                        var item = new string[] { $"{property.Name}", $"{property.PropertyType.Name.Replace("<","\\<")}", $"{GetPropertyDesc($"{type.FullName}.{property.Name}")}" };
+                        var item = new string[] { $"{property.Name}", $"{property.PropertyType.Name.Replace("<", "\\<")}", $"{GetPropertyDesc($"{type.FullName}.{property.Name}")}" };
                         data.Add(item);
                     }
                     if (data.Any())
@@ -177,7 +178,7 @@ namespace MdDocGenerator
                 {
 
                 }
-                var item = new string[] { $"{property.Name}", $"{property.PropertyType.Name.Replace("<","\\<")}", $"{GetPropertyDesc($"{type.FullName}.{property.Name}")}" };
+                var item = new string[] { $"{property.Name}", $"{property.PropertyType.Name.Replace("<", "\\<")}", $"{GetPropertyDesc($"{type.FullName}.{property.Name}")}" };
                 data.Add(item);
             }
             if (data.Any())

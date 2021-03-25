@@ -26,6 +26,8 @@ namespace MdDocGenerator.Util
 
         public static string OutputModule => GetConfigValue("OutputModule");
 
+        public static string OutputService => GetConfigValue("OutputService");
+
         public static string OutputMethod => GetConfigValue("OutputMethod");
 
         private static string GetConfigValue(string key)

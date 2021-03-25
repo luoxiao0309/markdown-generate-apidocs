@@ -55,7 +55,8 @@ namespace MdDocGenerator.Util
                             var propertyType = GetType(item.PropertyType);
                             if (propertyType != null)
                             {
-                                GetProperties(propertyType, child, item.Name, apiMethod);
+                                int level = 0;
+                                GetProperties(propertyType, child, item.Name, apiMethod,level);
                             }
                             children.Add(child);
                         }
@@ -63,7 +64,7 @@ namespace MdDocGenerator.Util
                         {
                             apiParam.Children.Add(apiParam.Name, children);
                         }
-                    }                    
+                    }
                     apiMethod.ApiParams.Add(apiParam);
                 }
 
@@ -94,7 +95,7 @@ namespace MdDocGenerator.Util
         public static Type GetType(Type type)
         {
             Type parameterType = null;
-            if(type.Name== "Nullable`1")
+            if (type.Name == "Nullable`1")
             {
                 return parameterType;
             }
@@ -112,7 +113,7 @@ namespace MdDocGenerator.Util
                 parameterType = type;
             }
 
-            if(parameterType!=null && parameterType.IsValueType || parameterType == typeof(string))
+            if (parameterType != null && parameterType.IsValueType || parameterType == typeof(string))
             {
                 parameterType = null;
             }
@@ -120,8 +121,13 @@ namespace MdDocGenerator.Util
             return parameterType;
         }
 
-        static void GetProperties(Type parameterType, ApiParam apiParam, string key, ApiMethod apiMethod)
+        static void GetProperties(Type parameterType, ApiParam apiParam, string key, ApiMethod apiMethod,int level)
         {
+            level++;
+            if (level >= 4)
+            {
+                return;
+            }
             var tempType = GetType(parameterType);
             if (tempType == null)
             {
@@ -140,7 +146,7 @@ namespace MdDocGenerator.Util
                 var type = GetType(item.PropertyType);
                 if (type != null)
                 {
-                    GetProperties(type, child, item.Name, apiMethod);
+                    GetProperties(type, child, item.Name, apiMethod,level);
                 }
                 children.Add(child);
             }
@@ -150,8 +156,14 @@ namespace MdDocGenerator.Util
             }
         }
 
+        private static int i = 0;
         static string GetTypeName(Type parameterType)
         {
+            i++;
+            if (i == 32313)
+            {
+
+            }
             if (parameterType.Name == "List`1")
             {
                 return $"List<{parameterType.GetGenericArguments()[0].Name}>";
@@ -172,12 +184,14 @@ namespace MdDocGenerator.Util
             var ignoreMethods = ConfigHelper.IgnoreMethods.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
             var ignoreServices = ConfigHelper.IgnoreServices.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
             var outputModule = ConfigHelper.OutputModule.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            var outputServices = ConfigHelper.OutputService.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
             List<MethodInfo> list = new List<MethodInfo>();
             foreach (var s in dllNames)
             {
                 var assembly = Assembly.LoadFrom(s);
                 var typeScope = assembly.GetTypes()
                     .Where(x => outputModule.Contains(x.Module.Name) && x.Namespace != null && (x.Namespace.EndsWith(".AppServices") || x.Namespace.EndsWith(".Interfaces")))
+                    .Where(x=> outputServices.IndexOf(x.Name)> -1)
                     .Where(x => x.IsSealed == false && x.IsPublic && ignoreServices.Contains(x.Name) == false)
                     .ToList();
                 foreach (var type1 in typeScope)
