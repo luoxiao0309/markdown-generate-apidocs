@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MdDocGenerator", "MdDocGenerator\MdDocGenerator.csproj", "{A12C6919-3294-45B0-9FB9-935AB1D39F20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MkDocGenerator.Test", "MkDocGenerator.Test\MkDocGenerator.Test.csproj", "{65404191-BA36-4ABD-90A9-17021182B3EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A12C6919-3294-45B0-9FB9-935AB1D39F20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A12C6919-3294-45B0-9FB9-935AB1D39F20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A12C6919-3294-45B0-9FB9-935AB1D39F20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65404191-BA36-4ABD-90A9-17021182B3EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65404191-BA36-4ABD-90A9-17021182B3EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65404191-BA36-4ABD-90A9-17021182B3EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65404191-BA36-4ABD-90A9-17021182B3EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

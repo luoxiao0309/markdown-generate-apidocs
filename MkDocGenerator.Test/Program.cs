@@ -1,13 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using MdDocGenerator;
 using MdDocGenerator.Util;
 
-namespace MdDocGenerator
+namespace MkDocGenerator.Test
 {
-    static class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var outputPath = ConfigHelper.OutputPath;
             if (!Directory.Exists(outputPath))
@@ -24,7 +25,5 @@ namespace MdDocGenerator
             Console.WriteLine("Markdown文档生成完成");
             Console.ReadKey();
         }
-
     }
-
 }
